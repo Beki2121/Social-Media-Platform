@@ -1,7 +1,9 @@
 const Post = require('../models/Post');
 
 exports.getFeed = async (req, res) => {
-  const posts = await Post.getAll();
+  // If user is authenticated, pass user id for like status
+  const userId = req.user ? req.user.id : null;
+  const posts = await Post.getAll(userId);
   res.json(posts);
 };
 

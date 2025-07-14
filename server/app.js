@@ -4,7 +4,14 @@ const app = express();
 const path = require('path');
 const multer = require('multer');
 
-app.use(cors());
+// Allow all origins and credentials for CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite default
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 
 // Serve uploads statically

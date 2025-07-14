@@ -1,0 +1,63 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #1877f2 60%, #42a5f5 100%);
+  color: #fff;
+  padding: 0 2rem;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  color: #1877f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.logout {
+  background: #fff;
+  color: #1877f2;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.logout:hover {
+  background: #e3eafc;
+}
+.link {
+  color: #fff;
+  margin-left: 1rem;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+} 

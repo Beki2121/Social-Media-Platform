@@ -1,11 +1,34 @@
 const db = require('../config/db');
+const Like = require('./Like');
 
 module.exports = {
-  async getAll() {
+  async getAll(userId = null) {
     const [rows] = await db.query(
       'SELECT posts.*, users.username, users.profile_picture FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC'
     );
-    return rows;
+    // For each post, fetch like/unlike counts and user status
+    const posts = await Promise.all(rows.map(async row => {
+      const likeCount = await Like.countPostLikes(row.id);
+      const unlikeCount = await Like.countPostUnlikes(row.id);
+      let userLikeStatus = null;
+      if (userId) {
+        if (await Like.isPostLikedByUser(userId, row.id)) userLikeStatus = 'like';
+        else if (await Like.isPostUnlikedByUser(userId, row.id)) userLikeStatus = 'unlike';
+      }
+      return {
+        id: row.id,
+        userId: row.user_id,
+        username: row.username,
+        userAvatar: row.profile_picture,
+        content: row.content,
+        image: row.image_url,
+        createdAt: row.created_at ? new Date(row.created_at).toISOString() : null,
+        likeCount,
+        unlikeCount,
+        userLikeStatus,
+      };
+    }));
+    return posts;
   },
   async getById(id) {
     const [rows] = await db.query('SELECT * FROM posts WHERE id = ?', [id]);
